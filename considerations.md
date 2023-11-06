@@ -45,14 +45,14 @@ fast process, I considered doing that before storing the data in the DB.
 If signals were prone to updates, or the algorithm was dependent on dynamic 
 parameters, I would've considered computing it when retrieving the data and caching it
 
-And if metrics were introduced down the line with a much higher computational cost,  
+And if metrics were introduced down the line with a much higher computational cost, 
 I would consider delegating the computation to a different service and having a state to 
 control when the ECG is ready to be fetched.
 
 As for the algorithm itself, I ended up using numpy. If we knew that the size of the 
-signals we'll be receiving is small, and that it's going to be the only signal  
+signals we'll be receiving is small, and that it's going to be the only signal 
 processing we're going to need, a pure python solution could've been enough. But 
-given the nature of the API it's likely that we'll encounter larger signals and  
+given the nature of the API it's likely that we'll encounter larger signals and 
 more complex signal processing in the future, so I considered numpy to be a good choice.
 
 I did a first implementation using only pure python, and then I did a bit more 
