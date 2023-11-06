@@ -5,7 +5,7 @@ A simple API to store and retrieve ECG data. Written in Python using FastAPI and
 MongoDB.
 
 ### Formatting
-ecg_api uses [black](https://black.readthedocs.io/en/stable/) to keep a consistent  
+ecg_api uses [black](https://black.readthedocs.io/en/stable/) to keep a consistent 
 coding style and formatting across the codebase. To format the codebase, run `black .`
 from the root of the project.
 
