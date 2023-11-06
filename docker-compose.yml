@@ -1,0 +1,51 @@
+services:
+  base: &base
+    tty: true
+    build:
+      context: .
+      target: base
+  api:
+    <<: *base
+    container_name: ecg-local
+    env_file: [ .env.local ]
+    ports:
+      - '8000:${ECG_API_PORT:-8000}'
+    restart: "no"
+    depends_on:
+      - mongo
+    entrypoint: /utils/wait-for-it.sh mongo:${ECG_MONGO_PORT:-27017} -- python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ./src:/app
+      - ./scripts/create_admin.py:/utils/create_admin.py
+  unit-tests:
+    <<: *base
+    build:
+      context: .
+      target: test
+    container_name: ecg-api-unit-test
+    env_file: [ .env.test ]
+    entrypoint: python -m pytest tests/unit
+    volumes:
+      - ./src:/app
+      - ./tests:/app/tests
+  integration-tests:
+    <<: *base
+    build:
+      context: .
+      target: test
+    container_name: ecg-api-integration-test
+    env_file: [ .env.test ]
+    depends_on:
+      - mongo
+    entrypoint: /utils/wait-for-it.sh mongo:${ECG_MONGO_PORT:-27017} -- python -m pytest tests/integration
+    volumes:
+      - ./src:/app
+      - ./tests:/app/tests
+  mongo:
+    image: mongo:7.0
+    container_name: fastapi-mongo
+    ports:
+      - '27017:${ECG_MONGO_PORT:-27017}'
+    restart: "no"
+    volumes:
+      - ./data/db:/data/db
