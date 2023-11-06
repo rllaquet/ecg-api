@@ -79,7 +79,7 @@ this will automatically set the Bearer token for all requests.
 The rest of the endpoints should be pretty self documented, even though I didn't do 
 proper models for all responses. Creating ECGs can be done by a user, and will only 
 be available to fetch for that user. Similarly, creating users can only be made by 
-admin users,
+admin users.
 
 
 ### Considerations
@@ -96,7 +96,7 @@ beneficial to have an extra layer of abstraction to give more flexibility
 operations of the same type, etc.).
 
 I'm also not a FastAPI expert! I've used it on personal projects but never on a huge 
-projects, so I'm sure with a bit more hands-on experience I would've been able to 
+project, so I'm sure with a bit more hands-on experience I would've been able to 
 spot a bunch of points of improvement.
 
 I made a different document that goes more in depth, didn't want to have an 
